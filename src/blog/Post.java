@@ -7,8 +7,20 @@ public class Post {
 	
 	private String title;
 	private String content;
-
+	int id;
+	public List<Author> authorList = new ArrayList<Author>();
+	public List<Category> categoryList = new ArrayList<Category>();
+	public List<Tags> tagList = new ArrayList<Tags>();
 	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -28,9 +40,15 @@ public class Post {
 	public List<Author> getAuthorList() {
 		return authorList;
 	}
-
 	public void setAuthorList(List<Author> authorList) {
 		this.authorList = authorList;
+	}
+	
+	public List<Tags> getTagList() {
+		return tagList;
+	}
+	public void setTagList(List<Tags> tagList) {
+		this.tagList = tagList;
 	}
 
 	public List<Category> getCategoryList() {
@@ -42,8 +60,6 @@ public class Post {
 		this.categoryList = categoryList;
 	}
 
-	public List<Author> authorList = new ArrayList<Author>();
-	public List<Category> categoryList = new ArrayList<Category>();
 	
 		
 	public void PrintPost() {
