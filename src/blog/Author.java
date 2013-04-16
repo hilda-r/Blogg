@@ -2,7 +2,6 @@ package blog;
 public class Author {
 
 	private String name;
-	private String email;
 	private int id;
 	
 	public int getId() {
@@ -14,20 +13,14 @@ public class Author {
 	}
 
 	public void PrintAuthor(){
-		System.out.println("Author: " + getName() + "\nEmail: " + email);
+		System.out.println("Author: " + getName());
 	}
 	
 	public String returnAuthor() {
 		return getName();
 	}
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public String getName() {
 		return name;

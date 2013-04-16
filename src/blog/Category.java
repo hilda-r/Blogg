@@ -2,7 +2,16 @@ package blog;
 public class Category {
 	
 	private String category;
+	private int id;
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	void PrintCategory(){
 		System.out.println("Category: " + category);
 	}
