@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import blog.Author;
 import blog.BlogPosts;
 import blog.Category;
@@ -14,7 +16,7 @@ import blog.Post;
 import blog.Tags;
 
 public class BlogFactory {
-	public static BlogPost getBlogPost(int id) {
+	static BlogPost getBlogPost(int id) {
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -49,7 +51,7 @@ public class BlogFactory {
 		return null;
 	}
 
-	public static List<Post> getBlogPosts(BlogPosts blogPosts) {
+	static List<Post> getBlogPosts(BlogPosts blogPosts) {
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -154,39 +156,39 @@ public class BlogFactory {
 		return ret;
 	}
 
-	public static BlogPost createBlogPost() {
+	
+	
+	public static void createPost() {
 		Connection con = null;
-		Statement st = null;
-		ResultSet rs = null;
 
-		String url = "jdbc:mysql://localhost/blog";
+		String url = "jdbc:mysql://localhost/";
 		String user = "root";
 		String password = "";
-
+		
+		BlogPosts blogPosts = new BlogPosts();
+		String title = "";
+		String content = "";
+		
+		for(int i = 0; i < blogPosts.items.size(); i++) { 
+			title = blogPosts.items.get(i).getTitle();
+			content = blogPosts.items.get(i).getContent();
+		}
+		
+	
 		try {
-			con = DriverManager.getConnection(
-					url, user, password);
-			st = con.createStatement();
-			rs = st.executeQuery("INSERT INTO post (id, title, content, author, category, comment_id, tag_id) VALUES(NULL, ?, ?, ?, ?, 0, 0)");
+			con = DriverManager.getConnection(url, user, password);
 
-			if (rs.next()) {
-				BlogPost blogPost = new BlogPost();
-				blogPost.setTitle(rs
-						.getString("title"));
-				blogPost.setContent(rs
-						.getString("content"));
-				blogPost.setAuthor(rs
-						.getString("author"));
-				blogPost.setCategory(rs
-						.getString("category"));
+			PreparedStatement prepStmt = (PreparedStatement) con.prepareStatement("INSERT INTO post (id, title, content, author, category) VALUES (NULL, ?, ?, 0, 0)");
+			prepStmt.setString(1, title);
+			prepStmt.setString(2,  content);
 
-				return blogPost;
-			}
+			System.out.println(prepStmt.toString());
+			prepStmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return null;
 	}
-
+	
+	
+	
 }
