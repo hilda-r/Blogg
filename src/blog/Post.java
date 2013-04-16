@@ -8,6 +8,8 @@ public class Post {
 	private String title;
 	private String content;
 	int id;
+	private String author;
+	private String category;
 	public List<Author> authorList = new ArrayList<Author>();
 	public List<Category> categoryList = new ArrayList<Category>();
 	public List<Tags> tagList = new ArrayList<Tags>();
@@ -59,6 +61,21 @@ public class Post {
 			List<Category> categoryList) {
 		this.categoryList = categoryList;
 	}
+	
+	
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	
 		
@@ -82,5 +99,7 @@ public class Post {
 		return "Title: " + title + "\nContent: " + content;
 		
 	}
+	
+	
 	
 }

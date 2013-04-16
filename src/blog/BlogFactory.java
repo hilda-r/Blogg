@@ -1,13 +1,13 @@
 package blog;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.PreparedStatement;
 
 import blog.Author;
 import blog.BlogPosts;
@@ -16,7 +16,7 @@ import blog.Post;
 import blog.Tags;
 
 public class BlogFactory {
-	static BlogPost getBlogPost(int id) {
+	static Post getBlogPost(int id) {
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -32,7 +32,7 @@ public class BlogFactory {
 			rs = st.executeQuery("SELECT * FROM post WHERE id="	+ id + " INNER JOIN author ON post.author = author.id INNER JOIN category ON post.category = category.id");
 
 			if (rs.next()) {
-				BlogPost blogPost = new BlogPost();
+				Post blogPost = new Post();
 				blogPost.setTitle(rs
 						.getString("title"));
 				blogPost.setContent(rs
@@ -158,10 +158,10 @@ public class BlogFactory {
 
 	
 	
-	public static void createPost(BlogPosts blogPosts) {
+	public static void createPost(Post post) {
 		Connection con = null;
 
-		String url = "jdbc:mysql://localhost/";
+		String url = "jdbc:mysql://localhost/blog";
 		String user = "root";
 		String password = "";
 		
@@ -169,18 +169,14 @@ public class BlogFactory {
 		String title = "";
 		String content = "";
 		
-		for(int i = 0; i < blogPosts.items.size(); i++) { 
-			title = blogPosts.items.get(i).getTitle();
-			content = blogPosts.items.get(i).getContent();
-		}
 		
 	
 		try {
 			con = DriverManager.getConnection(url, user, password);
 
 			PreparedStatement prepStmt = (PreparedStatement) con.prepareStatement("INSERT INTO post (id, title, content, author, category) VALUES (NULL, ?, ?, 0, 0)");
-			prepStmt.setString(1, title);
-			prepStmt.setString(2,  content);
+			prepStmt.setString(1, post.getTitle());
+			prepStmt.setString(2,  post.getContent());
 
 			System.out.println(prepStmt.toString());
 			prepStmt.execute();
