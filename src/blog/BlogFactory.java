@@ -158,14 +158,14 @@ public class BlogFactory {
 
 	
 	
-	public static void createPost() {
+	public static void createPost(BlogPosts blogPosts) {
 		Connection con = null;
 
 		String url = "jdbc:mysql://localhost/";
 		String user = "root";
 		String password = "";
 		
-		BlogPosts blogPosts = new BlogPosts();
+		
 		String title = "";
 		String content = "";
 		
